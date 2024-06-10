@@ -1,7 +1,6 @@
 import logo from './logo.svg';
-import React, { useState, useEffect  } from 'react';
+import React, { useState} from 'react';
 import './App.css';
-import axios from 'axios';
 import Table from './componant/Table';
 import {
   MenuFoldOutlined,
@@ -10,28 +9,21 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme, Typography } from 'antd';
-const { Title } = Typography;
+import { Button, Layout, Menu, theme, message } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
-  const [title, setTitle] = useState()
-  const [title2, setTitle2] = useState()
-  const [getResult, setResult] = useState([])
-
-  useEffect(() => {
-    console.log('Title changed', title2);
-  }, [title2]);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  
 
   return (
     <Layout>
     <Sider trigger={null} collapsible collapsed={collapsed}>
-      <div className="demo-logo-vertical" />
+    <img src={logo} className="App-logo" alt="logo" />
       <Menu
         theme="dark"
         mode="inline"
@@ -75,14 +67,19 @@ function App() {
       </Header>
       <Content
         style={{
-          margin: '24px 16px',
-          padding: 24,
+          margin: '24px 16px 0 0',
+          padding: '24px 0 100px 50px',
           minHeight: 280,
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
         }}
       >
         <Table />
+        <div className='submit'>
+        <Button type="primary" className='btn-submit' onClick={() =>{
+            message.success('Save Success!');
+          }}>submit</Button>
+        </div>
       </Content>
     </Layout>
   </Layout>

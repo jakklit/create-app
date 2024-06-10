@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import axios from 'axios';
+import '../App.css';
+
+import {EditOutlined, DeleteOutlined} from '@ant-design/icons';
 
 function Table() {
   const [getResult, setResult] = useState([]);
@@ -20,6 +23,17 @@ function Table() {
       selector: (row) => row.createdAt,
       sortable: true,
     },
+    {
+      name: "ACTION",
+      selector: () => (
+        <div className="btn-action">
+          <EditOutlined />
+          &nbsp;
+          <DeleteOutlined />
+        </div>
+      ),
+      sortable: true,
+    },
   ];
   const rows = getResult.map((item) => ({
     id: item.id,
@@ -36,7 +50,7 @@ function Table() {
       console.error(error);
     }
   };
-
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -47,7 +61,7 @@ function Table() {
         columns={columns}
         data={rows}
         fixedHeader
-        title="show data from api"
+        title={<h3 style={{ textAlign: "center"}}>show data from api</h3>}
         pagination
         selectableRows
       />
